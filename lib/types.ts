@@ -28,3 +28,12 @@ export type Week = {
     days: Day[];
     saved: boolean;
 };
+// 採買清單上的一列
+export type ShoppingItem = {
+    name: string;
+    unit: string;
+    group: Group;
+    qty: number | null; // 加總後的數量；「適量」這種沒有數字的是 null
+    qtyLabel: string; // 畫面上顯示的文字，例如「1.5 斤」「適量」
+    days: DayKey[]; // 哪幾天要用
+};
