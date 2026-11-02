@@ -1,4 +1,4 @@
-import { DishCard } from "@/components/DishCards";
+import { DishCard } from "@/components/DishCard";
 import type { Dish } from "@/lib/types";
 const sample: Dish = {
     id: "d1",
