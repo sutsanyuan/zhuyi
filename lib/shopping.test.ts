@@ -53,7 +53,7 @@ describe("buildShoppingList", () => {
                     key: "sun",
                     portion: "four",
                     dishes: [
-                        dish("醬油", [
+                        dish("紅燒肉", [
                             {
                                 name: "醬油",
                                 qty: 1,
@@ -61,14 +61,23 @@ describe("buildShoppingList", () => {
                                 group: "乾貨與調味料",
                                 freeze: false,
                             },
+                            {
+                                name: "五花肉",
+                                qty: 1,
+                                unit: "斤",
+                                group: "肉類・海鮮",
+                                freeze: false,
+                            },
                         ]),
                     ],
                 },
             ],
         };
+
         const list = buildShoppingList(week, ["醬油"]);
 
-        expect(list).toHaveLength(0);
+        expect(list).toHaveLength(1); // 只剩一樣
+        expect(list[0].name).toBe("五花肉"); // 而且剩下的是五花肉，不是醬油
     });
 
     it("兩人份減半", () => {
@@ -120,10 +129,26 @@ describe("buildShoppingList", () => {
                         ]),
                     ],
                 },
+                {
+                    key: "mon",
+                    portion: "two",
+                    dishes: [
+                        dish("有洋蔥", [
+                            {
+                                name: "洋蔥",
+                                qty: 1,
+                                unit: "顆",
+                                group: "蔬菜",
+                                freeze: false,
+                            },
+                        ]),
+                    ],
+                },
             ],
         };
 
         const list = buildShoppingList(week, []);
-        expect(list).toHaveLength(0);
+        expect(list).toHaveLength(1);
+        expect(list[0].name).toBe("洋蔥");
     });
 });
