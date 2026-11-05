@@ -43,4 +43,87 @@ describe("buildShoppingList", () => {
         expect(list[0].qty).toBe(3); // 1 + 2 = 3
         expect(list[0].days).toEqual(["sun", "mon"]);
     });
+    it("家裡有的不用買", () => {
+        const week: Week = {
+            id: "w1",
+            start: "2026-11-01",
+            saved: false,
+            days: [
+                {
+                    key: "sun",
+                    portion: "four",
+                    dishes: [
+                        dish("醬油", [
+                            {
+                                name: "醬油",
+                                qty: 1,
+                                unit: "瓶",
+                                group: "乾貨與調味料",
+                                freeze: false,
+                            },
+                        ]),
+                    ],
+                },
+            ],
+        };
+        const list = buildShoppingList(week, ["醬油"]);
+
+        expect(list).toHaveLength(0);
+    });
+
+    it("兩人份減半", () => {
+        const week: Week = {
+            id: "w1",
+            start: "2026-11-01",
+            saved: false,
+            days: [
+                {
+                    key: "sun",
+                    portion: "two",
+                    dishes: [
+                        dish("生牛腩", [
+                            {
+                                name: "牛腩",
+                                qty: 1,
+                                unit: "斤",
+                                group: "肉類・海鮮",
+                                freeze: false,
+                            },
+                        ]),
+                    ],
+                },
+            ],
+        };
+
+        const list = buildShoppingList(week, []);
+        expect(list[0].qty).toBe(0.5);
+    });
+
+    it("不煮那天不算", () => {
+        const week: Week = {
+            id: "w1",
+            start: "2026-11-01",
+            saved: false,
+            days: [
+                {
+                    key: "sun",
+                    portion: "off",
+                    dishes: [
+                        dish("生牛腩", [
+                            {
+                                name: "牛腩",
+                                qty: 1,
+                                unit: "斤",
+                                group: "肉類・海鮮",
+                                freeze: false,
+                            },
+                        ]),
+                    ],
+                },
+            ],
+        };
+
+        const list = buildShoppingList(week, []);
+        expect(list).toHaveLength(0);
+    });
 });
