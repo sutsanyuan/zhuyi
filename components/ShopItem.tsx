@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import type { ShoppingItem } from "@/lib/types";
-import { flushSync } from "react-dom";
 
 type Props = { item: ShoppingItem };
 
