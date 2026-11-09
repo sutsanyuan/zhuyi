@@ -1,0 +1,24 @@
+name: CI
+
+# 什麼時候跑：每個 PR，以及合併進 main 的時候
+on:
+    pull_request:
+    push:
+        branches: [main]
+
+jobs:
+    check:
+        runs-on: ubuntu-latest # GitHub 幫你開一台乾淨的 Linux 電腦
+        steps:
+            - uses: actions/checkout@v4 # 1. 把程式碼抓下來
+            - uses: actions/setup-node@v4 # 2. 裝 Node.js
+              with:
+                  node-version: 22
+                  cache: npm
+            - run: npm ci # 3. 照 package-lock.json 安裝套件
+            - name: 型別檢查
+              run: npm run typecheck
+            - name: 程式碼檢查
+              run: npm run lint
+            - name: 測試
+              run: npm run test:run

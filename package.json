@@ -6,8 +6,10 @@
         "dev": "next dev --turbopack",
         "build": "next build --turbopack",
         "start": "next start",
-        "lint": "eslint",
-        "test": "vitest"
+        "lint": "eslint . --max-warning=0",
+        "typecheck": "tsc --noEmit",
+        "test": "vitest",
+        "test:run": "vitest run"
     },
     "dependencies": {
         "next": "15.5.4",
