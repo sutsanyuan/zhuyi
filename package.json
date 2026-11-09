@@ -6,7 +6,7 @@
         "dev": "next dev --turbopack",
         "build": "next build --turbopack",
         "start": "next start",
-        "lint": "eslint . --max-warning=0",
+        "lint": "eslint . --max-warnings=0",
         "typecheck": "tsc --noEmit",
         "test": "vitest",
         "test:run": "vitest run"
