@@ -37,3 +37,27 @@ export type ShoppingItem = {
     qtyLabel: string; // 畫面上顯示的文字，例如「1.5 斤」「適量」
     days: DayKey[]; // 哪幾天要用
 };
+
+// ── 第 9 課：料理資料庫 ──
+export type Season = "春" | "夏" | "秋" | "冬";
+
+// 資料庫裡的一道料理（對應 Supabase 的 recipes 表）
+export type Recipe = {
+    id: string;
+    name: string;
+    type: Dish["type"];
+    cuisine: string;
+    main: string;
+    difficulty: 1 | 2 | 3;
+    minutes: number;
+    bento: boolean;
+    seasons: Season[]; // 空陣列 = 四季都可以
+    ingredients: Omit<Ingredient, "freeze">[];
+};
+
+// 排菜單時要遵守的條件
+export type PlanRules = {
+    dislikes: string[]; // 不吃的食材
+    recent: string[]; // 最近吃過的菜名
+    season: Season; // 現在的季節
+};
