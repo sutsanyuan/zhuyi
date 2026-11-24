@@ -51,4 +51,7 @@ describe("isAllowed", () => {
     it("當季的菜可以排", () => {
         expect(isAllowed(makeRecipe({ seasons: ["秋", "冬"] }), rules)).toBe(true);
     });
+    it("不吃的東西沒出現在食材裡，就可以排", () => {
+        expect(isAllowed(makeRecipe(), { ...rules, dislikes: ["茄子"] })).toBe(true);
+    });
 });
