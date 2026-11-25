@@ -1,4 +1,4 @@
-import type { PlanRules, Recipe } from "@/lib/types";
+import type { Day, DayKey, Dish, PlanRules, Recipe } from "@/lib/types";
 
 // 這道菜符不符合排菜單的條件？三條規則都過了才回傳 true
 export function isAllowed(recipe: Recipe, rules: PlanRules): boolean {
@@ -27,4 +27,58 @@ export function isAllowed(recipe: Recipe, rules: PlanRules): boolean {
     if (!inSeason) return false;
 
     return true;
+}
+
+// ════════════ 第 9 課（下）：排一週菜單 ════════════
+
+const DAY_KEYS: DayKey[] = ["sun", "mon", "tue", "thu"];
+
+// 資料庫的一道料理（Recipe）→ 菜單上的一道菜（Dish）
+function toDish(recipe: Recipe, day: DayKey): Dish {
+    return {
+        id: recipe.id,
+        name: recipe.name,
+        type: recipe.type,
+        challenge: recipe.difficulty === 3, // 難度 3 就是挑戰菜
+        minutes: recipe.minutes,
+        ingredients: recipe.ingredients.map((ing) => ({
+            ...ing,
+            // TODO 1：週四要煮的肉和海鮮，要提早冷凍
+            //   條件有兩個，都要成立：「今天是週四」而且「這個食材是肉類・海鮮」
+            //   提示：day === "thu"、ing.group、「而且」是 &&
+
+            freeze: day === "thu" && ing.group === "肉類・海鮮",
+        })),
+    };
+}
+
+// 從料理資料庫排出一週四天的菜：每天一道主菜（肉或海鮮）＋一道蔬菜
+// random 平常用 Math.random；測試時換成 alwaysFirst，結果才固定、能檢查
+export function planFromRecipes(
+    recipes: Recipe[],
+    rules: PlanRules,
+    random: () => number = Math.random
+): Day[] {
+    const pool = recipes.filter((r) => isAllowed(r, rules)); // 先用你寫的 isAllowed 過濾
+    const used = new Set<string>(); // 這週已經排過的料理 id，避免重複
+
+    // 從 pool 裡挑一道指定類型、還沒用過的菜；挑不到就回傳 null
+    function pickOne(types: Recipe["type"][]): Recipe | null {
+        // TODO 2：找出候選的菜。兩個條件都要成立：
+        //   (1) 類型在 types 裡面　提示：types.includes(r.type)
+        //   (2) 這週還沒用過　　　提示：used.has(r.id) 是「用過了」，前面加 ! 變成「還沒用過」
+        const candidates = pool.filter((r) => types.includes(r.type) && !used.has(r.id));
+
+        if (candidates.length === 0) return null;
+        const chosen = candidates[Math.floor(random() * candidates.length)]; // 隨機挑一個
+        used.add(chosen.id); // 記下來，之後就不會再挑到
+        return chosen;
+    }
+
+    return DAY_KEYS.map((key) => {
+        const main = pickOne(["肉", "海鮮"]);
+        const veg = pickOne(["菜"]);
+        const dishes = [main, veg].filter((r) => r !== null).map((r) => toDish(r, key));
+        return { key, portion: "four", dishes };
+    });
 }
