@@ -1,11 +1,12 @@
 import { planFromRecipes } from "@/lib/plan";
 import { loadRecipes } from "@/lib/recipes";
+import { currentSeason } from "@/lib/season";
 
 const DAY_NAMES = { sun: "週日", mon: "週一", tue: "週二", thu: "週四" };
 
 export default async function PlanTestPage() {
     const recipes = await loadRecipes();
-    const days = planFromRecipes(recipes, { dislikes: [], recent: [], season: "冬" });
+    const days = planFromRecipes(recipes, { dislikes: [], recent: [], season: currentSeason() });
 
     return (
         <main className="p-6">
