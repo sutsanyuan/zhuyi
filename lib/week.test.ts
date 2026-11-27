@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { homeWeekStart } from "@/lib/week";
+import { dayDate, homeWeekStart, weekLabel, weekRange } from "@/lib/week";
 
 // 2026 年 11 月：22 日是週日，26 日週四，27 日週五，29 日週日
 describe("homeWeekStart", () => {
@@ -22,5 +22,21 @@ describe("homeWeekStart", () => {
     it("用台灣時間算：台灣週五凌晨，伺服器（UTC）還是週四", () => {
         // 台灣 11/27（五）00:30 = UTC 11/26（四）16:30
         expect(homeWeekStart(new Date("2026-11-26T16:30:00Z"))).toBe("2026-11-29");
+    });
+});
+
+describe("dayDate、weekRange、weekLabel", () => {
+    it("算出每一天的月/日，跨月也對", () => {
+        expect(dayDate("2026-11-29", "sun")).toBe("11/29");
+        expect(dayDate("2026-11-29", "thu")).toBe("12/3");
+    });
+
+    it("一週的範圍是週日到週四", () => {
+        expect(weekRange("2026-11-29")).toBe("11/29 – 12/3");
+    });
+
+    it("週五、週六的標題是下週菜單", () => {
+        expect(weekLabel(new Date("2026-11-26T23:59:00+08:00"))).toBe("本週菜單");
+        expect(weekLabel(new Date("2026-11-27T00:00:00+08:00"))).toBe("下週菜單");
     });
 });
