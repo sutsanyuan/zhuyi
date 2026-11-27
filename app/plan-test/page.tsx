@@ -32,7 +32,7 @@ export default async function PlanTestPage() {
             )}
 
             <form action={createWeek} className="mt-6">
-                <button className="rounded-lg bg-leek px-4 py-2 text-on-leek">
+                <button className="rounded-lg bg-accent px-4 py-2 text-on-accent">
                     {days === null ? "排這週的菜" : "重新排"}
                 </button>
             </form>

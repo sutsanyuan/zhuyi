@@ -54,7 +54,7 @@ export default function LoginPage() {
                     </label>
                     <button
                         disabled={busy}
-                        className="rounded-lg bg-leek px-3 py-2 text-on-leek disabled:opacity-50">
+                        className="rounded-lg bg-accent px-3 py-2 text-on-accent disabled:opacity-50">
                         {busy ? "寄送中…" : "寄驗證碼給我"}
                     </button>
                 </form>
@@ -75,7 +75,7 @@ export default function LoginPage() {
                     </label>
                     <button
                         disabled={busy}
-                        className="rounded-lg bg-leek px-3 py-2 text-on-leek disabled:opacity-50">
+                        className="rounded-lg bg-accent px-3 py-2 text-on-accent disabled:opacity-50">
                         {busy ? "確認中…" : "登入"}
                     </button>
                     <button

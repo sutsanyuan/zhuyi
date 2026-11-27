@@ -11,7 +11,7 @@ function weekday(isoDate: string): number {
 
 // 往後（正數）或往前（負數）加幾天
 // 例如 addDays("2026-11-27", 2) → "2026-11-29"、addDays("2026-11-26", -4) → "2026-11-22"
-function addDays(isoDate: string, days: number): string {
+export function addDays(isoDate: string, days: number): string {
     const d = new Date(`${isoDate}T00:00:00Z`);
     d.setUTCDate(d.getUTCDate() + days);
     return d.toISOString().slice(0, 10);
@@ -27,4 +27,22 @@ export function homeWeekStart(date: Date = new Date()): string {
         return addDays(today, 7 - wd);
     }
     return addDays(today, -wd);
+}
+
+// 某一天的日期，例如 dayDate("2026-11-29", "thu") → "12/3"
+const DAY_OFFSET = { sun: 0, mon: 1, tue: 2, thu: 4 } as const;
+export function dayDate(start: string, key: keyof typeof DAY_OFFSET): string {
+    const [, m, d] = addDays(start, DAY_OFFSET[key]).split("-");
+    return `${Number(m)}/${Number(d)}`;
+}
+
+// 一週的範圍，例如 weekRange("2026-11-29") → "11/29 – 12/3"
+export function weekRange(start: string): string {
+    return `${dayDate(start, "sun")} – ${dayDate(start, "thu")}`;
+}
+
+// 主畫面的標題：週五、週六顯示的是下週
+export function weekLabel(date: Date = new Date()): string {
+    const wd = weekday(taipeiDate(date));
+    return wd >= 5 ? "下週菜單" : "本週菜單";
 }
