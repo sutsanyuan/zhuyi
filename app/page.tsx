@@ -1,25 +1,25 @@
 import { createWeek } from "@/app/actions";
 import { DayCard } from "@/components/DayCard";
-import { SignOutButton } from "@/components/SignOutButton";
+import { PageHeader } from "@/components/PageHeader";
 import { dayDate, homeWeekStart, weekLabel, weekRange } from "@/lib/week";
 import { loadWeek } from "@/lib/weeks";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
     const start = homeWeekStart();
-    const days = await loadWeek(start);
+    const week = await loadWeek(start);
+    if (week && !week.confirmed) redirect("/plan"); // 排好但還沒確定 → 先去 01-2 調整
 
     return (
-        <main className="mx-auto flex min-h-dvh max-w-[520px] flex-col px-6 pb-10">
-            <header className="pt-10 pb-5">
-                <h1 className="font-display text-[36px] leading-none">Menu</h1>
-            </header>
+        <main className="mx-auto flex min-h-dvh max-w-[520px] flex-col px-6 pb-28">
+            <PageHeader title="Menu" />
 
             <div className="flex items-end justify-between py-4">
                 <span className="text-lg">{weekLabel()}</span>
                 <span className="text-sm text-faint">{weekRange(start)}</span>
             </div>
 
-            {days === null ? (
+            {week === null ? (
                 <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
                     <p className="font-display text-[64px] leading-none">Oops!</p>
                     <p className="mb-5 leading-relaxed">
@@ -35,15 +35,12 @@ export default async function Home() {
                 </div>
             ) : (
                 <div className="flex flex-col gap-3.5">
-                    {days.map((day) => (
+                    {week.days.map((day) => (
                         <DayCard key={day.key} day={day} date={dayDate(start, day.key)} />
                     ))}
                 </div>
             )}
 
-            <div className="mt-auto pt-10 text-center">
-                <SignOutButton />
-            </div>
         </main>
     );
 }

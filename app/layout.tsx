@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Amatic_SC, Noto_Sans_TC } from "next/font/google";
+import { TabBar } from "@/components/TabBar";
 import "./globals.css";
 
 const amatic = Amatic_SC({
@@ -16,7 +17,7 @@ const notoTC = Noto_Sans_TC({
 });
 
 export const metadata: Metadata = {
-    title: "煮意",
+    title: "貓有煮意",
     description: "每週備餐：四天晚餐和隔天便當，一次排好。",
 };
 
@@ -27,7 +28,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="zh-Hant" className={`${amatic.variable} ${notoTC.variable}`}>
-            <body className={"font-sans antialiased"}>{children}</body>
+            <body className={"font-sans antialiased"}>
+                {children}
+                <TabBar />
+            </body>
         </html>
     );
 }

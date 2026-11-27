@@ -33,7 +33,7 @@ export default function LoginPage() {
         const { error } = await supabase.auth.verifyOtp({ email, token: code, type: "email" });
         setBusy(false);
         if (error) setError(error.message);
-        else router.push("/recipes-test");
+        else router.push("/");
     }
 
     return (

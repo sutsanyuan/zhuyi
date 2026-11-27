@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Day } from "@/lib/types";
 
 const EN_DAY = { sun: "Sun", mon: "Mon", tue: "Tue", thu: "Thu" };
@@ -12,7 +13,7 @@ export function DayCard({ day, date }: Props) {
     const names = day.portion === "off" || day.dishes.length === 0 ? ["-"] : day.dishes.map((d) => d.name);
 
     return (
-        <div className="flex bg-surface">
+        <Link href="/plan" className="flex bg-surface" aria-label="點一下編輯這週菜單">
             {/* 左邊：橘色方塊，Sun + 日期 */}
             <div className="flex w-[86px] shrink-0 flex-col items-center justify-center gap-2 bg-accent p-5 text-on-accent">
                 <span className="font-display text-[30px] leading-none">{EN_DAY[day.key]}</span>
@@ -30,7 +31,7 @@ export function DayCard({ day, date }: Props) {
                 </ul>
                 <PortionDots portion={day.portion} />
             </div>
-        </div>
+        </Link>
     );
 }
 

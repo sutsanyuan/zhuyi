@@ -45,6 +45,7 @@ create table public.weeks (
   days       jsonb not null,
   checks     jsonb not null default '{}',
   saved      boolean not null default false,
+  confirmed  boolean not null default false,   -- 第 12 課加的：按了 Shopping 才算確定
   created_at timestamptz not null default now(),
   unique (user_id, start)
 );

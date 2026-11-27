@@ -2,7 +2,10 @@ import type { Group, ShoppingItem, Week } from "@/lib/types";
 // 份量倍數：食譜都以四人份計算
 const PORTION_FACTOR = { four: 1, two: 0.5, off: 0 };
 // 採買清單的分組順序（跟逛市場的順序一樣）
-const GROUP_ORDER: Group[] = ["肉類・海鮮", "蔬菜", "菇類", "豆類與蛋", "乾貨與調味料", "其他"];
+// 家裡常備、不用買的東西（之後會搬到 Setting 讓使用者自己改）
+export const PANTRY = ["醬油", "鹽", "糖", "米酒", "沙拉油", "白胡椒", "黑胡椒", "太白粉"];
+
+export const GROUP_ORDER: Group[] = ["肉類・海鮮", "蔬菜", "菇類", "豆類與蛋", "乾貨與調味料", "其他"];
 
 export function buildShoppingList(week: Week, pantry: string[]): ShoppingItem[] {
     // 用「名稱|單位」當鑰匙，找出同一樣食材
