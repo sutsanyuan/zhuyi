@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
-/* 1. 原始 token：淺色模式的值 */
+/* 1. 原始 token：淺色模式的值（Sherry 的 Figma：淺灰底、白卡、橘紅主色） */
 :root {
-    --bg: #f4f5f1;
+    --bg: #f2f2f2;
     --surface: #ffffff;
-    --sunk: #eceee8;
-    --line: #dce1da;
-    --ink: #1b2420;
-    --muted: #5e6a63;
-    --faint: #7a8579;
-    --leek: #2b7548;
-    --leek-bg: #e3f0e6;
-    --on-leek: #ffffff;
-    --tag: #f2c744;
-    --tag-bg: #fcf1cf;
-    --tag-ink: #7a5a00;
+    --sunk: #ebebeb;
+    --line: #e2e2e2;
+    --ink: #1d1d1d;
+    --muted: #6f6f6f;
+    --faint: #8b8b8b;
+    --accent: #cf541b;
+    --accent-bg: #fbe8de;
+    --on-accent: #ffffff;
+    --tag: #e8a33a;
+    --tag-bg: #fcefd7;
+    --tag-ink: #8a5a12;
     --chili: #b23a27;
     --chili-bg: #fbe6e1;
     --ice: #2f6690;
@@ -26,18 +26,18 @@
 /* 2. 深色模式只換值，名字不變 */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg: #121614;
-        --surface: #1b201d;
-        --sunk: #232925;
-        --line: #2e3631;
-        --ink: #e9eee9;
-        --muted: #a6b1a9;
-        --faint: #7c877f;
-        --leek: #6cc08d;
-        --leek-bg: #1e3326;
-        --on-leek: #0f1a13;
-        --tag-bg: #3a3112;
-        --tag-ink: #f2d27a;
+        --bg: #161616;
+        --surface: #222222;
+        --sunk: #2c2c2c;
+        --line: #333333;
+        --ink: #ededed;
+        --muted: #adadad;
+        --faint: #8e8e8e;
+        --accent: #e8713a;
+        --accent-bg: #3a2419;
+        --on-accent: #1a0e08;
+        --tag-bg: #3a2d16;
+        --tag-ink: #f2c778;
         --chili: #f07a63;
         --chili-bg: #3a1f1a;
         --ice: #7db3de;
@@ -55,9 +55,9 @@
     --color-ink: var(--ink);
     --color-muted: var(--muted);
     --color-faint: var(--faint);
-    --color-leek: var(--leek);
-    --color-leek-bg: var(--leek-bg);
-    --color-on-leek: var(--on-leek);
+    --color-accent: var(--accent);
+    --color-accent-bg: var(--accent-bg);
+    --color-on-accent: var(--on-accent);
     --color-tag: var(--tag);
     --color-tag-bg: var(--tag-bg);
     --color-tag-ink: var(--tag-ink);
@@ -68,7 +68,7 @@
     --color-flame: var(--flame);
     --color-flame-soft: var(--flame-soft);
 
-    --font-display: var(--font-zen-maru), var(--font-noto-tc), sans-serif;
+    --font-display: var(--font-amatic), var(--font-noto-tc), sans-serif;
     --font-sans: var(--font-noto-tc), "PingFang TC", sans-serif;
 
     --radius-card: 14px;

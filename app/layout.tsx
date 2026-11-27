@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Zen_Maru_Gothic, Noto_Sans_TC } from "next/font/google";
+import { Amatic_SC, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 
-const zenMaru = Zen_Maru_Gothic({
-    weight: ["700", "900"],
-    variable: "--font-zen-maru", // 對應 globals.css 裡的 var(--font-zen-maru)
+const amatic = Amatic_SC({
+    weight: ["700"],
+    variable: "--font-amatic",
     subsets: ["latin"],
-    preload: false, // 中日文字體很大，不預先載入
 });
 
 const notoTC = Noto_Sans_TC({
@@ -27,7 +26,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="zh-Hant" className={`${zenMaru.variable} ${notoTC.variable}`}>
+        <html lang="zh-Hant" className={`${amatic.variable} ${notoTC.variable}`}>
             <body className={"font-sans antialiased"}>{children}</body>
         </html>
     );

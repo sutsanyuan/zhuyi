@@ -14,7 +14,7 @@ export function ShopItem({ item }: Props) {
                 type="checkbox"
                 checked={done}
                 onChange={() => setDone(!done)}
-                className="size-5 accent-leek"
+                className="size-5 accent-accent"
             />
             <span className={done ? "flex-1 text-faint line-through" : "flex-1"}>{item.name}</span>
             <span className={`text-sm  ${done ? "text-faint" : "text-muted"}`}>
